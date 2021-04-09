@@ -1,0 +1,21 @@
+[rustsbi] RustSBI version 0.2.0-alpha.1
+.______       __    __      _______.___________.  _______..______   __
+|   _  \     |  |  |  |    /       |           | /       ||   _  \ |  |
+|  |_)  |    |  |  |  |   |   (----`---|  |----`|   (----`|  |_)  ||  |
+|      /     |  |  |  |    \   \       |  |      \   \    |   _  < |  |
+|  |\  \----.|  `--'  |.----)   |      |  |  .----)   |   |  |_)  ||  |
+| _| `._____| \______/ |_______/       |__|  |_______/    |______/ |__|
+
+[rustsbi] Platform: QEMU (Version 0.2.0)
+[rustsbi] misa: RV64ACDFIMSU
+[rustsbi] mideleg: 0x222
+[rustsbi] medeleg: 0xb1ab
+[rustsbi-dtb] Hart count: cluster0 with 1 cores
+[rustsbi] Kernel entry: 0x80200000
+Hello World!
+.text [0x80200000, 0x80202000)
+.rodata [0x80202000, 0x80203000)
+.data [0x80203000, 0x80203000)
+.boot_stack [0x80203000, 0x80213000)
+.bss [0x80213000, 0x80213000)
+Panicded at src/main.rs:41 Shutdown machine!
