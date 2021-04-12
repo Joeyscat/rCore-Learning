@@ -6,7 +6,7 @@ extern crate user_lib;
 
 const SIZE: usize = 10;
 const P: u32 = 3;
-const STEP: usize = 10000;
+const STEP: usize = 100000;
 const MOD: u32 = 10007;
 
 #[no_mangle]
@@ -18,7 +18,7 @@ fn main() -> i32 {
         let last = pow[index];
         index = (index + 1) % SIZE;
         pow[index] = last * P % MOD;
-        if 1 % 10000 == 0 {
+        if i % 10000 == 0 {
             println!("{}^{}={}", P, i, pow[index]);
         }
     }
