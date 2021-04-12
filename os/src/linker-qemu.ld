@@ -13,7 +13,7 @@ SECTIONS
         *(.text .text.*)
     }
 
-    . = ALIGN(4k);
+    . = ALIGN(4K);
     etext = .;
     srodata = .;
     .rodata : {
@@ -21,7 +21,7 @@ SECTIONS
         *(.srodata .srodata.*)
     }
 
-    . = ALIGN(4k);
+    . = ALIGN(4K);
     erodata = .;
     sdata = .;
     .data : {
@@ -29,7 +29,7 @@ SECTIONS
         *(.sdata .sdata.*)
     }
 
-    . = ALIGN(4k);
+    . = ALIGN(4K);
     edata = .;
     .bss : {
         *(.bss.stack)
@@ -38,7 +38,7 @@ SECTIONS
         *(.sbss .sbss.*)
     }
 
-    . = ALIGN(4k);
+    . = ALIGN(4K);
     ebss = .;
     ekernel = .;
 
