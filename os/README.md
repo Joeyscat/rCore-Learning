@@ -27,19 +27,6 @@ ElfHeader {
 ```
 
 
-### command not found: qemu-riscv64
-```shell
-➜  os git:(main) ✗ qemu-riscv64 target/riscv64gc-unknown-none-elf/debug/os; echo $?
-zsh: command not found: qemu-riscv64
-127
-➜  os git:(main) ✗ sudo apt-get install qemu-user        
-Reading package lists... Done
-...
-➜  os git:(main) ✗ qemu-riscv64 target/riscv64gc-unknown-none-elf/debug/os; echo $?
-Hello World!
-9
-```
-
 ### 
 ```shell
 # 编译生成ELF格式的执行文件
@@ -52,5 +39,4 @@ rust-objcopy --binary-architecture=riscv64 target/riscv64gc-unknown-none-elf/rel
 
 # 加载运行
 qemu-system-riscv64 -machine virt -nographic -bios ../bootloader/rustsbi-qemu.bin -device loader,file=target/riscv64gc-unknown-none-elf/release/os.bin,addr=0x80200000
-# 无法退出，风扇狂转，感觉碰到死循环
 ```
