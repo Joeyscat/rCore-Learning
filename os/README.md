@@ -1,56 +1,36 @@
-### 查看编译生成的可执行文件
-```shell
-# 文件格式
-➜  os git:(main) ✗ file target/riscv64gc-unknown-none-elf/debug/os
-target/riscv64gc-unknown-none-elf/debug/os: ELF 64-bit LSB executable, UCB RISC-V, version 1 (SYSV), statically linked, with debug_info, not stripped
-# 文件头信息
-➜  os git:(main) ✗ rust-readobj -h target/riscv64gc-unknown-none-elf/debug/os
-
-File: target/riscv64gc-unknown-none-elf/debug/os
-Format: elf64-littleriscv
-Arch: riscv64
-AddressSize: 64bit
-LoadName: <Not found>
-ElfHeader {
-  ...
-  Type: Executable (0x2)
-  Machine: EM_RISCV (0xF3)
-  Version: 1
-  Entry: 0x119A0
-  ...
-}
-# 反汇编导出汇编程序
-➜  os git:(main) ✗ rust-objdump -S target/riscv64gc-unknown-none-elf/debug/os
-
-...
-
-```
-
 
 ### command not found: qemu-riscv64
-```shell
-➜  os git:(main) ✗ qemu-riscv64 target/riscv64gc-unknown-none-elf/debug/os; echo $?
-zsh: command not found: qemu-riscv64
-127
-➜  os git:(main) ✗ sudo apt-get install qemu-user        
-Reading package lists... Done
-...
-➜  os git:(main) ✗ qemu-riscv64 target/riscv64gc-unknown-none-elf/debug/os; echo $?
+```bash
+➜ os :  make run
+(rustup target list | grep "riscv64gc-unknown-none-elf (installed)") || rustup target add riscv64gc-unknown-none-elf
+riscv64gc-unknown-none-elf (installed)
+cargo install cargo-binutils --vers ~0.2
+    Updating `git://mirrors.ustc.edu.cn/crates.io-index` index
+     Ignored package `cargo-binutils v0.2.0` is already installed, use --force to override
+rustup component add rust-src
+info: component 'rust-src' is up to date
+rustup component add llvm-tools-preview
+info: component 'llvm-tools-preview' for target 'x86_64-unknown-linux-gnu' is up to date
+Platform: qemu
+    Finished release [optimized] target(s) in 0.00s
+[rustsbi] RustSBI version 0.2.0-alpha.1
+.______       __    __      _______.___________.  _______..______   __
+|   _  \     |  |  |  |    /       |           | /       ||   _  \ |  |
+|  |_)  |    |  |  |  |   |   (----`---|  |----`|   (----`|  |_)  ||  |
+|      /     |  |  |  |    \   \       |  |      \   \    |   _  < |  |
+|  |\  \----.|  `--'  |.----)   |      |  |  .----)   |   |  |_)  ||  |
+| _| `._____| \______/ |_______/       |__|  |_______/    |______/ |__|
+
+[rustsbi] Platform: QEMU (Version 0.2.0)
+[rustsbi] misa: RV64ACDFIMSU
+[rustsbi] mideleg: 0x222
+[rustsbi] medeleg: 0xb1ab
+[rustsbi-dtb] Hart count: cluster0 with 1 cores
+[rustsbi] Kernel entry: 0x80200000
 Hello World!
-9
-```
-
-### 
-```shell
-# 编译生成ELF格式的执行文件
-cargo build --release
- Compiling os v0.1.0 (/media/chyyuu/ca8c7ba6-51b7-41fc-8430-e29e31e5328f/thecode/rust/os_kernel_lab/os)
-  Finished release [optimized] target(s) in 0.15s
-
-# 把ELF执行文件转成bianary文件
-rust-objcopy --binary-architecture=riscv64 target/riscv64gc-unknown-none-elf/release/os --strip-all -O binary target/riscv64gc-unknown-none-elf/release/os.bin
-
-# 加载运行
-qemu-system-riscv64 -machine virt -nographic -bios ../bootloader/rustsbi-qemu.bin -device loader,file=target/riscv64gc-unknown-none-elf/release/os.bin,addr=0x80200000
-# 无法退出，风扇狂转，感觉碰到死循环
+.text [0x80200000, 0x80221000)
+.rodata [0x80221000, 0x80235000)
+.data [0x80235000, 0x80236000)
+.boot_stack [0x80236000, 0x80246000)
+.bss [0x80246000, 0x80246000)
 ```

@@ -42,14 +42,14 @@ macro_rules! trace {
 #[macro_export]
 macro_rules! debug {
     ($fmt: literal $(, $($arg: tt)+)?) => {
-        $crate::console::print(format_args!(concat!("\x1b[32m",$fmt, "\x1b[0m\n") $(, $($arg)+)?));
+        $crate::console::print(format_args!(concat!("\x1b[34m",$fmt, "\x1b[0m\n") $(, $($arg)+)?));
     }
 }
 
 #[macro_export]
 macro_rules! info {
     ($fmt: literal $(, $($arg: tt)+)?) => {
-        $crate::console::print(format_args!(concat!("\x1b[34m",$fmt, "\x1b[0m\n") $(, $($arg)+)?));
+        $crate::console::print(format_args!(concat!("\x1b[37m",$fmt, "\x1b[0m\n") $(, $($arg)+)?));
     }
 }
 
