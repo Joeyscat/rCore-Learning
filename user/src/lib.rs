@@ -22,7 +22,7 @@ pub extern "C" fn _start() -> ! {
 
 /// 使用 Rust 的宏将其函数符号 main 标志为弱链接。这样在最后链接的时候，
 /// 虽然在 lib.rs 和 bin 目录下的某个 应用程序都有 main 符号，
-/// 但由于 lib.rs 中的 main 符号是弱链接，链接器会使用 bin 目录下的应用主逻辑作为 main 。 
+/// 但由于 lib.rs 中的 main 符号是弱链接，链接器会使用 bin 目录下的应用主逻辑作为 main 。
 /// 这里我们主要是进行某种程度上的保护，如果在 bin 目录下找不到任何 main ，
 /// 那么编译也能够通过，并会在运行时报错
 #[linkage = "weak"]
@@ -56,4 +56,9 @@ pub fn write(fd: usize, buf: &[u8]) -> isize {
 // 退出应用程序并将这个返回值告知批处理系统
 pub fn exit(exit_code: i32) -> isize {
     sys_exit(exit_code)
+}
+
+pub fn yield_() -> isize {
+    //
+    sys_yield()
 }

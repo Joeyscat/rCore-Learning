@@ -3,6 +3,7 @@
 #![feature(llvm_asm)]
 #![feature(global_asm)]
 #![feature(panic_info_message)]
+#![feature(const_in_array_repeat_expressions)]
 
 #[macro_use]
 mod console;
@@ -22,8 +23,9 @@ pub fn rust_main() -> ! {
     clear_bss();
     println!("[kernel] Hello World!");
     trap::init();
-    batch::init();
-    batch::run_next_app();
+    loader::load_apps();
+    task::run_first_task();
+    panic!("Unreachable in rust_main!")
 }
 
 // 把 [.bss] 段的全局数据清零
